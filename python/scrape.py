@@ -8,17 +8,15 @@ def getPIDS(fname):
     f = open(fname, "r")
     found = re.findall("\/player\/(\d+)\/traditional\/\">(\w+ \w+|\w+-\w+ \w+|\w.\w. \w+|\w+ \w+-\w+)", f.read())
     # print(found)
-    for i in found:
-        print("Player: " + str(i[1]) + " ID:" + str(i[0]))
+    # for i in found:
+    #     print("Player: " + str(i[1]) + " ID:" + str(i[0]))
     return found
 
 
 def getShotCharts(fname):
-
     found = getPIDS(fname)
-    print("no here")
     for player in found:
-        print(player[0])
+        # print(player[0])
         headers1 = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:53.0) Gecko/20100101 Firefox/53.0'}
         params = {
             'PlayerID': str(player[0]),
@@ -47,11 +45,12 @@ def getShotCharts(fname):
         # Grab the shot chart data
         shots = response.json()['resultSets'][0]['rowSet']
         shot_df = pd.DataFrame(shots, columns=headers)
+        shot_df.to_csv("../Resources/" + str(player[1])+ ".csv")
         # View the head of the DataFrame and all its columns
-        #print("yo")
-        from IPython.display import display
-        with pd.option_context('display.max_columns', None):
-            print(shot_df["GAME_DATE"])
+        # from IPython.display import display
+        # with pd.option_context('display.max_columns', None):
+        #     print(shot_df["GAME_DATE"])
         break
-getPIDS("playerIDS.txt")
-#getShotCharts("playerIDS.txt")
+
+# getPIDS("playerIDS.txt")
+getShotCharts("playerIDS.txt")
