@@ -58,10 +58,8 @@ function getRelativeY(oldY, n) {
 function getCombinedPos(data, n) {
     var nestedData = d3.nest()
         .key(function (d) {
-
             var x = getRelativeX(d.x, n);
             var y = getRelativeY(d.y, n);
-
             return [x, y];
         })
         .rollup(function (v) {
