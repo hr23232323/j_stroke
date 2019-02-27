@@ -1,0 +1,22 @@
+#page {
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
+#viz {
+    width: 600px;
+    height: 400px;
+}
+
+#hoop {
+    height: 400px;
+    margin-left: -30px;
+}
+
+#hoop img {
+    height: 100%
+}
