@@ -55,7 +55,7 @@ function getRelativeY(oldY, n) {
 
 }
 
-function getCombinedData(data, n) {
+function getCombinedPos(data, n) {
     var nestedData = d3.nest()
         .key(function (d) {
 
@@ -63,6 +63,31 @@ function getCombinedData(data, n) {
             var y = getRelativeY(d.y, n);
 
             return [x, y];
+        })
+        .rollup(function (v) {
+            return {
+                "made": d3.sum(v, function (d) {
+                    return d.SHOT_MADE_FLAG;
+                }),
+                "attempts": v.length,
+                "shootingPercentage": d3.sum(v, function (d) {
+                    return d.SHOT_MADE_FLAG;
+                }) / v.length
+            }
+        })
+        .entries(data);
+    // change to use a string split and force cast to int
+    nestedData.forEach(function (a) {
+        a.key = JSON.parse("[" + a.key + "]");
+    });
+
+    return nestedData;
+};
+
+function getCombinedDist(data, n) {
+    var nestedData = d3.nest()
+        .key(function (d) {
+            return d.distance;
         })
         .rollup(function (v) {
             return {
