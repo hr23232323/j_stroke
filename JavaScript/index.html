@@ -24,8 +24,8 @@
         // Test d3 was loaded
         console.log(d3);
 
-        var WIDTH = 505;
-        var HEIGHT = 475;
+        var WIDTH = 500;
+        var HEIGHT = 500;
 
         //Make the Court SVG
         var courtSVG = d3.select("#top")
@@ -60,11 +60,10 @@
                 d.y = d.LOC_Y;
                 d.made = d.SHOT_MADE_FLAG;
             });
-
-
-            makeShotChart(courtSVG, data, 7);
-            makeLineChart(lineSVG, data);
-
+            // Call makeShotChart.js to make the shot chart in this SVG, with data, aggregate coordinates by n
+            makeShotChart(courtSVG, data, 7, WIDTH, HEIGHT);
+            // Call makeLineChart.js to make the line chart in this SVG, with data
+            makeLineChart(lineSVG, data, WIDTH, HEIGHT);
         });
     </script>
 </body>
