@@ -9,14 +9,19 @@
 
 #viz {
     width: 600px;
-    height: 400px;
+    height: 300px;
 }
 
 #hoop {
-    height: 400px;
-    margin-left: -35px;
+    height: 300px;
+    margin-left: -45px;
 }
 
 #hoop img {
-    height: 100%
+    height: 280px;
+    margin-bottom: 20px;
+}
+
+.axes text {
+    color: red
 }
