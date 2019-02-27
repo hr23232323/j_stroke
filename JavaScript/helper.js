@@ -82,6 +82,10 @@ function getCombinedPos(data, n) {
     return nestedData;
 };
 
+function add(accumulator, a) {
+    return accumulator + a;
+}
+
 function getCombinedDist(data, n) {
     var nestedData = d3.nest()
         .key(function (d) {
