@@ -2,16 +2,14 @@
 <html>
 <head>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src='Court.js'></script>
+    <script src='helper.js'></script>
     <meta charset="utf-8">
     <title>Final Project</title>
 </head>
 
 <body>
-    <style>
-        #court {
-            background-color: burlywood;
-        }
-    </style>
     <div id="left-container"></div>
     <div id="right-container">
         <div id="top">
@@ -23,21 +21,20 @@
         // Test d3 was loaded
         console.log(d3);
 
-        var WIDTH = 500;
-        var HEIGHT = 500;
+        var WIDTH = 505;
+        var HEIGHT = 475;
 
-        // Create the court SVG
+        //Make the Court SVG
         var courtSVG = d3.select("#top")
             .append("svg")
-            .attr("id", "court")
-            .attr("width", WIDTH)
+            .attr("id", "courtSVG")
+            .attr("width", WIDTH - 5)
             .attr("height", HEIGHT);
-
-        courtSVG.append("g")
-            .append("text")
-            .text("Test")
-            .attr("x", 100)
-            .attr("y", 100)
+        // Adjust the size of the SVG to make the court and append g
+        courtSVG.attr('width', o.width)
+            .attr('viewBox', "0 0 " + o.courtWidth + " " + o.visibleCourtLength)
+            .append('g')
+            .attr('class', 'shot-chart-court')
 
         // Load the CSV
         d3.csv("../Resources/James Harden.csv").then(function(data, error) {
@@ -55,34 +52,34 @@
                 d.made = d.SHOT_MADE_FLAG;
             });
 
-            function scaleShotsX(x, width) {
-                var scaleX = d3.scaleLinear().domain([-245, 245]).range([0, width]);
-                return scaleX(x).toFixed(0);
-            }
+            // Aggregate the data, aggregate data is how many x, y points to cluster together
+            var aggregateSize = 7;
+            var nested = getCombinedData(data, aggregateSize);
 
-            function scaleShotsY(y, height) {
-                var scaleY = d3.scaleLinear().domain([-50, 700]).range([0, height]);
-                return scaleY(y).toFixed(0);
-            }
-            console.log(data[1].x);
-            courtSVG.select("g")
+            // Add the shots to the SVG
+            courtSVG.select(".shot-chart-court")
                 .selectAll("shots")
-                .data(data)
+                .data(nested)
                 .enter()
                 .append("circle")
                 .attr("cx", function(d) {
-                    return scaleShotsX(d.x, WIDTH);
+                    return scaleShotsX(d.key[0], WIDTH);
                 })
                 .attr("cy", function(d) {
-                    return scaleShotsY(d.y, HEIGHT);
+                    return scaleShotsY(d.key[1], HEIGHT);
                 })
-                .attr("r", 5)
+                .attr("r", .5)
                 .style("fill", function(d) {
-                    if (d.made == 1) {
-                        return "green";
-                    }
-                    return "red";
+                    //console.log(d.value.shootingPercentage);
+                    //console.log(fgScale(d.value.shootingPercentage));
+                    return fgScale(d.value.shootingPercentage);
+                })
+                .style("opacity", .25)
+                .on("mouseover", function(d) {
+                    console.log(d.value.shootingPercentage)
                 });
+            // Draw the court
+            drawCourt(courtSVG.select("g"));
         });
     </script>
 </body>
