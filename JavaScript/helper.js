@@ -1,18 +1,3 @@
-function scaleShotsX(x, width) {
-    var scaleX = d3.scaleLinear().domain([-245, 245]).range([50, 0]);
-    return scaleX(x).toFixed(0);
-}
-
-function scaleShotsY(y, height) {
-    var scaleY = d3.scaleLinear().domain([-50, 325]).range([37.375, 0]);
-    return scaleY(y).toFixed(0);
-}
-
-function fgScale(percent) {
-    var color = d3.scaleLinear().domain([0, .65]).range(["#0000FF", "#FF0000"]);
-    return color(percent);
-}
-
 // Have to check for negative numbers
 function getRelativeX(oldX, n) {
     var x = 0;
