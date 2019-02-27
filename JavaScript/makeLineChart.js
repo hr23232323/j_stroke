@@ -27,28 +27,22 @@ function makeLineChart(svg, data, WIDTH, HEIGHT) {
             .append("line")
             .attr("x1", function () {
                 if (index == 0) {
-                    console.log("start");
                     return d3.scaleLinear().domain([0, 60]).range([50, WIDTH + 50])(0);
                 } else {
-                    console.log("last D = " + lineData[index - 1][1]);
                     return d3.scaleLinear().domain([0, 60]).range([50, WIDTH + 50])(lineData[index - 1][1]);
                 }
             })
             .attr("y1", function () {
                 if (index == 0) {
-                    console.log("start");
                     return chartHeight;
                 } else {
-                    console.log("last A = " + lineData[index - 1][0]);
                     return d3.scaleLinear().domain([0, .25]).range([chartHeight, 10])((lineData[index - 1][0]) / totalShots);
                 }
             })
             .attr("x2", function () {
-                console.log("curr D = " + lineData[index][1]);
                 return d3.scaleLinear().domain([0, 60]).range([50, WIDTH + 50])(lineData[index][1]);
             })
             .attr("y2", function () {
-                console.log("curr A = " + lineData[index][0]);
                 return d3.scaleLinear().domain([0, .25]).range([chartHeight, 10])((lineData[index][0] / totalShots));
             })
             .attr("stroke", "red")

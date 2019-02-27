@@ -85,7 +85,7 @@ appendArcPath = function (base, radius, startAngle, endAngle) {
 // draw basketball court
 var drawCourt = function (svg) {
     var base = svg;
-    if (o.height) base.attr('height', o.height);
+    //    if (o.height) base.attr('height', o.height);
 
     base.append("rect")
         .attr('class', 'shot-chart-court-key')

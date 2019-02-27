@@ -34,7 +34,7 @@
             .attr("width", WIDTH - 5)
             .attr("height", HEIGHT);
         // Adjust the size of the SVG to make the court and append g
-        courtSVG.attr('width', o.width)
+        courtSVG
             .attr('viewBox', "0 0 " + o.courtWidth + " " + o.visibleCourtLength)
             .append('g')
             .attr('class', 'shot-chart-court')
@@ -61,7 +61,7 @@
                 d.made = d.SHOT_MADE_FLAG;
             });
             // Call makeShotChart.js to make the shot chart in this SVG, with data, aggregate coordinates by n
-            makeShotChart(courtSVG, data, 7, WIDTH, HEIGHT);
+            makeShotChart(courtSVG, data, 19, WIDTH, HEIGHT);
             // Call makeLineChart.js to make the line chart in this SVG, with data
             makeLineChart(lineSVG, data, WIDTH, HEIGHT);
         });

@@ -1,10 +1,10 @@
 function scaleShotsX(x, width) {
-    var scaleX = d3.scaleLinear().domain([-245, 245]).range([50, 0]);
+    var scaleX = d3.scaleLinear().domain([-250, 250]).range([50, 0]);
     return scaleX(x).toFixed(0);
 }
 
 function scaleShotsY(y, height) {
-    var scaleY = d3.scaleLinear().domain([-50, 325]).range([37.375, 0]);
+    var scaleY = d3.scaleLinear().domain([-50, 350]).range([37.375, 0]);
     return scaleY(y).toFixed(0);
 }
 
@@ -13,7 +13,7 @@ function fgScale(percent) {
     return color(percent);
 }
 
-function makeShotChart(svg, data, n) {
+function makeShotChart(svg, data, n, WIDTH, HEIGHT) {
     /*  ==============================================
         || Below is the code to make the shot chart ||
         ==============================================*/
