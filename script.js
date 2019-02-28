@@ -69,7 +69,7 @@ d3.csv("/Resources/James Harden.csv").then(function (data, error) {
 // interactivity on hover
 function hoverChanges(data, distance, event) {
     if (event == "on") {
-
+        /*
         d3.selectAll(".curve-path")
             .filter(function (e, j) {
                 console.log(e[0].x, distance)
@@ -83,8 +83,12 @@ function hoverChanges(data, distance, event) {
                 fill: 'none',
                 opacity: 1
             })
+            */
+
+        drawVertLine(lineSVG, distance, WIDTH_2, HEIGHT_2);
 
     } else {
+        /*
         d3.selectAll(".curve-path")
             .filter(function (e, j) {
                 if (Math.floor(e[0].x) == distance) {
@@ -96,7 +100,8 @@ function hoverChanges(data, distance, event) {
                 'stroke-width': 0.5,
                 fill: 'none',
                 opacity: 0.2
-            })
+            })*/
+        d3.select("#d-" + distance).remove();
 
     }
 }
