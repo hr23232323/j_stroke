@@ -12,7 +12,7 @@ function drawVertLine(svg, distance, width, height) {
 }
 
 function makeLineChart(svg, data, WIDTH, HEIGHT) {
-
+    svg.selectAll("*").remove();
     var chartHeight = HEIGHT - 50
     var nestedDist = getCombinedDist(data);
 

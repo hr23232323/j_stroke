@@ -1,4 +1,7 @@
-function makeBio(svg, player) {
+function makeBio(svg, player, BIOWIDTH, BIOHEIGHT) {
+
+    svg.selectAll("*").remove();
+    svg.append("g").attr("id", "playerbio");
     svg.select("#playerbio")
         .append("text")
         .text(player.name)
