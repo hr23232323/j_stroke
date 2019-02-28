@@ -69,16 +69,21 @@ d3.csv("/Resources/James Harden.csv").then(function (data, error) {
 // interactivity on hover
 function hoverChanges(data, distance, event) {
     if (event == "on") {
-
         d3.selectAll(".curve-path")
             .filter(function (e, j) {
-                console.log(e[0].x, distance)
-                if (Math.floor(e[0].x) == distance) {
-                    console.log("Hey")
+                //console.log(e[0].x, distance)
+                dist = Math.floor(e[0].x)
+                if (dist > 23) {
+                    // 3 point
+                    x1 = 0 - (dist - 23)
+
+                } else {
+                    //2 point
+                    x1 = 0 + (23 - dist)
                 }
-                return (Math.floor(e[0].x) == distance)
+                return (x1 == distance)
             }).attrs({
-                stroke: 'Black',
+                stroke: 'black',
                 'stroke-width': 1,
                 fill: 'none',
                 opacity: 1
@@ -87,10 +92,17 @@ function hoverChanges(data, distance, event) {
     } else {
         d3.selectAll(".curve-path")
             .filter(function (e, j) {
-                if (Math.floor(e[0].x) == distance) {
-                    console.log("Hey")
+                //console.log(e[0].x, distance)
+                dist = Math.floor(e[0].x)
+                if (dist > 23) {
+                    // 3 point
+                    x1 = 0 - (dist - 23)
+
+                } else {
+                    //2 point
+                    x1 = 0 + (23 - dist)
                 }
-                return (Math.floor(e[0].x) == distance)
+                return (x1 == distance)
             }).attrs({
                 stroke: 'steelBlue',
                 'stroke-width': 0.5,
