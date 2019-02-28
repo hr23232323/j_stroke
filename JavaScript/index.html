@@ -67,6 +67,17 @@
             .attr("width", BIOWIDTH)
             .attr("height", BIOHEIGHT)
 
+        // The below is how we get a new playe
+
+        document.getElementById("playerSelect").onchange = function() {
+            changePlayer()
+        };
+
+        function changePlayer() {
+            var name = document.getElementById("playerSelect");
+            console.log(name.value)
+            //Send name.value to the update function!
+        }
         var select = document.getElementById("playerSelect");
         var player_name = select.options[select.selectedIndex].value;
         console.log(player_name);
