@@ -65,3 +65,38 @@ d3.csv("/Resources/James Harden.csv").then(function (data, error) {
     // Call curve shart
     makeCurveChart(curveSVG, data, WIDTH_3, HEIGHT_3)
 });
+
+// interactivity on hover
+function hoverChanges(data, distance, event) {
+    if (event == "on") {
+
+        d3.selectAll(".curve-path")
+            .filter(function (e, j) {
+                console.log(e[0].x, distance)
+                if (Math.floor(e[0].x) == distance) {
+                    console.log("Hey")
+                }
+                return (Math.floor(e[0].x) == distance)
+            }).attrs({
+                stroke: 'Black',
+                'stroke-width': 1,
+                fill: 'none',
+                opacity: 1
+            })
+
+    } else {
+        d3.selectAll(".curve-path")
+            .filter(function (e, j) {
+                if (Math.floor(e[0].x) == distance) {
+                    console.log("Hey")
+                }
+                return (Math.floor(e[0].x) == distance)
+            }).attrs({
+                stroke: 'steelBlue',
+                'stroke-width': 0.5,
+                fill: 'none',
+                opacity: 0.2
+            })
+
+    }
+}

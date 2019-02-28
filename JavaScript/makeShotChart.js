@@ -42,7 +42,13 @@ function makeShotChart(svg, data, n, WIDTH, HEIGHT) {
         })
         .style("opacity", .25)
         .on("mouseover", function (d) {
-            console.log(d.value.shootingPercentage)
-            console.log(d.value.distance)
+            circle = d3.select(this)
+            circle.attr("r", 1)
+            hoverChanges(data, d.value.distance, "on")
+        })
+        .on("mouseout", function (d) {
+            circle = d3.select(this)
+            circle.attr("r", .5)
+            hoverChanges(data, d.value.distance, "off")
         });
 }

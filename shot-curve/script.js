@@ -115,6 +115,7 @@ function redraw(svg, curve, width, height, margin, made, xScale, yScale) {
     graphGroup.append('path')
         .datum(curve)
         .attrs({
+            class: 'curve-path',
             d: line,
             stroke: 'steelBlue',
             'stroke-width': 0.5,
