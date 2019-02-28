@@ -1,117 +1,99 @@
-function makeShortChart(x, y) {
-    d3.csv("James-Harden.csv", function (error, data) {
-        if (error) throw error;
-        var width = document.getElementById('viz').offsetWidth;
-        var height = document.getElementById('viz').offsetHeight;
-        var margin = {
-            top: 20,
-            right: 0,
-            bottom: 20,
-            left: 30
+function makeCurveChart(svg, data, width, height) {
+    var xScale = d3.scaleLinear()
+        .domain([-5, 25])
+        .range([0, width - margin.right - margin.left]);
+    var yScale = d3.scaleLinear()
+        .domain([0, 100])
+        .range([height - margin.top - margin.bottom, 0]);
+
+    function getPoint(x) {
+        return (-1 * Math.pow(x, 2))
+    }
+    //data = data.slice(0, 1000)
+    data.forEach(function (d, i) {
+        var rand = Math.random()
+        d.SHOT_DISTANCE = +d.SHOT_DISTANCE;
+        d.SHOT_MADE_FLAG = +d.SHOT_MADE_FLAG;
+
+        if (d.SHOT_DISTANCE > 23) {
+            // 3 point
+            x1 = 0 - (d.SHOT_DISTANCE - 23)
+
+        } else {
+            //2 point
+            x1 = 0 + (23 - d.SHOT_DISTANCE)
         }
 
-        var div = d3.select("#viz")
-        var svg = div
-            .append('svg')
-            .attr('width', width)
-            .attr('height', height);
+        x1 -= rand
 
+        y1 = 0;
 
+        if (x1 < 0) {
+            // 3 point
+            x2 = randomNumber(12, 20)
+            y2 = randomNumber(85, 98)
 
-        var xScale = d3.scaleLinear()
-            .domain([-5, 25])
-            .range([0, width - margin.right - margin.left]);
-        var yScale = d3.scaleLinear()
-            .domain([0, 100])
-            .range([height - margin.top - margin.bottom, 0]);
+        } else if (x1 < 5) {
+            // Long 2
+            x2 = randomNumber(16, 22)
+            y2 = randomNumber(75, 85)
+        } else if (x1 < 12) {
+            // short shot
+            x2 = randomNumber(18, 23)
+            y2 = randomNumber(75, 85)
+        } else if (x1 < 16) {
+            // v short shot
+            x2 = randomNumber(20, 24)
+            y2 = randomNumber(72, 78)
 
-        function getPoint(x) {
-            return (-1 * Math.pow(x, 2))
+        } else {
+            // layup
+            x2 = randomNumber(23, 24)
+            y2 = randomNumber(70, 75)
         }
-        //data = data.slice(0, 1000)
-        data.forEach(function (d, i) {
-            var rand = Math.random()
-            d.SHOT_DISTANCE = +d.SHOT_DISTANCE;
-            d.SHOT_MADE_FLAG = +d.SHOT_MADE_FLAG;
 
-            if (d.SHOT_DISTANCE > 23) {
-                // 3 point
-                x1 = 0 - (d.SHOT_DISTANCE - 23)
-
-            } else {
-                //2 point
-                x1 = 0 + (23 - d.SHOT_DISTANCE)
-            }
-
-            x1 -= rand
-
-            y1 = 0;
-
-            if (x1 < 0) {
-                // 3 point
-                x2 = randomNumber(12, 20)
-                y2 = randomNumber(85, 98)
-
-            } else if (x1 < 5) {
-                // Long 2
-                x2 = randomNumber(16, 22)
-                y2 = randomNumber(75, 85)
-            } else if (x1 < 12) {
-                // short shot
-                x2 = randomNumber(18, 23)
-                y2 = randomNumber(75, 85)
-            } else if (x1 < 16) {
-                // v short shot
-                x2 = randomNumber(20, 24)
-                y2 = randomNumber(72, 78)
-
-            } else {
-                // layup
-                x2 = randomNumber(23, 24)
-                y2 = randomNumber(70, 75)
-            }
-
-            x3 = randomNumber(24, 25)
-            y3 = 69
-            var curve = []
-            curve.push({
-                x: x1,
-                y: y1
-            }, {
-                x: x2,
-                y: y2
-            }, {
-                x: x3,
-                y: y3
-            })
-
-            redraw(svg, curve, width, height, margin, d.SHOT_MADE_FLAG, xScale, yScale);
+        x3 = randomNumber(24, 25)
+        y3 = 69
+        var curve = []
+        curve.push({
+            x: x1,
+            y: y1
+        }, {
+            x: x2,
+            y: y2
+        }, {
+            x: x3,
+            y: y3
         })
 
-
-
-        var x_axis = d3.axisBottom()
-            .scale(xScale)
-            .ticks(30, "f")
-            .tickSize(0)
-            .tickFormat(function (d) {
-                console.log(d)
-                d = -d + 23
-                var mapper = {
-                    23: "~23 ft.",
-                    14: "~14 ft.",
-                    4: "4 ft.",
-                    0: "Under Rim"
-                }
-
-                return mapper[d]
-            })
-
-        svg.append("g")
-            .attr("transform", "translate(0," + (height - 20) + ")")
-            .call(x_axis);
+        redraw(svg, curve, width, height, margin, d.SHOT_MADE_FLAG, xScale, yScale);
     })
+
+
+
+    var x_axis = d3.axisBottom()
+        .scale(xScale)
+        .ticks(30, "f")
+        .tickSize(0)
+        .tickFormat(function (d) {
+            console.log(d)
+            d = -d + 23
+            var mapper = {
+                23: "~23 ft.",
+                14: "~14 ft.",
+                4: "4 ft.",
+                0: "Under Rim"
+            }
+
+            return mapper[d]
+        })
+
+    svg.append("g")
+        .attr("transform", "translate(0," + (height - 20) + ")")
+        .call(x_axis);
+
 }
+
 
 function redraw(svg, curve, width, height, margin, made, xScale, yScale) {
     var interpolation = "d3.curveMonotoneX";
@@ -135,9 +117,9 @@ function redraw(svg, curve, width, height, margin, made, xScale, yScale) {
         .attrs({
             d: line,
             stroke: 'steelBlue',
-            'stroke-width': 0.2,
+            'stroke-width': 0.5,
             fill: 'none',
-            opacity: 0.075
+            opacity: 0.2
         });
 }
 
@@ -146,5 +128,3 @@ function randomNumber(min, max) {
 
     return highlightedNumber;
 };
-
-makeShortChart()

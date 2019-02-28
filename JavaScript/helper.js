@@ -53,6 +53,9 @@ function getCombinedPos(data, n) {
                     return d.SHOT_MADE_FLAG;
                 }),
                 "attempts": v.length,
+                "distance": d3.sum(v, function (d) {
+                    return d.SHOT_DISTANCE;
+                }),
                 "shootingPercentage": d3.sum(v, function (d) {
                     return d.SHOT_MADE_FLAG;
                 }) / v.length
