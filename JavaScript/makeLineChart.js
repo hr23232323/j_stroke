@@ -1,3 +1,16 @@
+function drawVertLine(svg, distance, width, height) {
+    svg.append("line")
+        .attr("stroke", "#333333")
+        .attr("stroke-width", 2)
+        .attr("x1", d3.scaleLinear().domain([0, 60]).range([50, width + 50])(distance))
+        .attr("y1", 10)
+        .attr("x2", d3.scaleLinear().domain([0, 60]).range([50, width + 50])(distance))
+        .attr("y2", height - 50)
+        .style("opacity", .5)
+        .style("stroke-dasharray", [5, 5])
+        .attr("id", "d-" + distance)
+}
+
 function makeLineChart(svg, data, WIDTH, HEIGHT) {
 
     var chartHeight = HEIGHT - 50
@@ -166,6 +179,8 @@ function makeLineChart(svg, data, WIDTH, HEIGHT) {
         .attr("y2", chartHeight)
         .style("opacity", .5)
         .style("stroke-dasharray", [5, 5])
+
+    drawVertLine(svg, 23, WIDTH, chartHeight);
     svg.append("text")
         .text("(3pt Line)")
         .attr("x", d3.scaleLinear().domain([0, 60]).range([50, WIDTH + 50])(23) + 5)

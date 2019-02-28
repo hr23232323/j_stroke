@@ -89,6 +89,8 @@ function hoverChanges(data, distance, event) {
                 opacity: 1
             })
 
+        drawVertLine(lineSVG, distance, WIDTH_2, HEIGHT_2);
+
     } else {
         d3.selectAll(".curve-path")
             .filter(function (e, j) {
@@ -109,6 +111,7 @@ function hoverChanges(data, distance, event) {
                 fill: 'none',
                 opacity: 0.2
             })
+        d3.select("#d-" + distance).remove();
 
     }
 }

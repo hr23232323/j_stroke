@@ -8,12 +8,26 @@
     <script src='helper.js'></script>
     <script src='makeShotChart.js'></script>
     <script src='makeLineChart.js'></script>
+    <script src='makeBio.js'></script>
     <meta charset="utf-8">
     <title>Final Project</title>
 </head>
 
 <body>
-    <div id="left-container"></div>
+    <div id="left-container">
+        <select id="playerSelect">
+            <option value="Anthony_Davis">Anthony Davis</option>
+            <option value="Kevin_Durant">Kevin Durant</option>
+            <option value="Lebron_James">Lebron James</option>
+            <option value="Dwyane_Wade">Dwyane Wade</option>
+            <option value="Kyle_Korver">Kyle Korver</option>
+            <option value="Kyrie_Irving">Kyrie Irving</option>
+            <option value="Tony_Parker">Tony Parker</option>
+            <option value="Russell_Westbrook">Russell Westbrook</option>
+            <option value="Vince_Carter">Vince Carter</option>
+        </select>
+        <div id="bio"></div>
+    </div>
     <div id="right-container">
         <div id="top">
         </div>
@@ -26,6 +40,8 @@
 
         var WIDTH = 500;
         var HEIGHT = 500;
+        var BIOWIDTH = 200;
+        var BIOHEIGHT = 200;
 
         //Make the Court SVG
         var courtSVG = d3.select("#top")
@@ -45,8 +61,28 @@
             .attr("width", WIDTH)
             .attr("height", HEIGHT);
 
+        var bioSVG = d3.select('#bio')
+            .append("svg")
+            .attr("id", "bioSVG")
+            .attr("width", BIOWIDTH)
+            .attr("height", BIOHEIGHT)
+
+        // The below is how we get a new playe
+
+        document.getElementById("playerSelect").onchange = function() {
+            changePlayer()
+        };
+
+        function changePlayer() {
+            var name = document.getElementById("playerSelect");
+            console.log(name.value)
+            //Send name.value to the update function!
+        }
+        var select = document.getElementById("playerSelect");
+        var player_name = select.options[select.selectedIndex].value;
+        console.log(player_name);
         // Load the CSV
-        d3.csv("../Resources/James Harden.csv").then(function(data, error) {
+        d3.csv("../Resources/" + player_name + "_shots.csv").then(function(data, error) {
             if (error) {
                 throw error;
             }
@@ -64,6 +100,28 @@
             makeShotChart(courtSVG, data, 19, WIDTH, HEIGHT);
             // Call makeLineChart.js to make the line chart in this SVG, with data
             makeLineChart(lineSVG, data, WIDTH, HEIGHT);
+
+
+        });
+        d3.csv("../Resources/" + player_name + "info.csv").then(function(data, error) {
+            if (error) {
+                throw error;
+            }
+            data.forEach(function(d) {
+                //Store the data
+                d.name = d.DISPLAY_FIRST_LAST;
+                d.pos = d.POSITION;
+                d.height = d.HEIGHT;
+                d.weight = d.WEIGHT;
+                d.school = d.SCHOOL;
+                d.draftYear = d.DRAFT_YEAR;
+                d.draftRound = d.DRAFT_ROUND;
+                d.draftPick = d.DRAFT_NUMBER;
+                d.team = d.TEAM_ABBREVIATION;
+                d.country = d.COUNTRY;
+            });
+            bioSVG.append("g").attr("id", "playerbio");
+            makeBio(bioSVG, data[0]);
         });
     </script>
 </body>
