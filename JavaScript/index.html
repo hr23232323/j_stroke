@@ -15,6 +15,17 @@
 
 <body>
     <div id="left-container">
+        <select id="playerSelect">
+            <option value="Anthony_Davis">Anthony Davis</option>
+            <option value="Kevin_Durant">Kevin Durant</option>
+            <option value="Lebron_James">Lebron James</option>
+            <option value="Dwyane_Wade">Dwyane Wade</option>
+            <option value="Kyle_Korver">Kyle Korver</option>
+            <option value="Kyrie_Irving">Kyrie Irving</option>
+            <option value="Tony_Parker">Tony Parker</option>
+            <option value="Russell_Westbrook">Russell Westbrook</option>
+            <option value="Vince_Carter">Vince Carter</option>
+        </select>
         <div id="bio"></div>
     </div>
     <div id="right-container">
@@ -56,9 +67,11 @@
             .attr("width", BIOWIDTH)
             .attr("height", BIOHEIGHT)
 
-
+        var select = document.getElementById("playerSelect");
+        var player_name = select.options[select.selectedIndex].value;
+        console.log(player_name);
         // Load the CSV
-        d3.csv("../Resources/James Harden.csv").then(function(data, error) {
+        d3.csv("../Resources/" + player_name + "_shots.csv").then(function(data, error) {
             if (error) {
                 throw error;
             }
@@ -79,14 +92,11 @@
 
 
         });
-        d3.csv("../Resources/Kyle_Korverinfo.csv").then(function(data, error) {
+        d3.csv("../Resources/" + player_name + "info.csv").then(function(data, error) {
             if (error) {
                 throw error;
             }
             data.forEach(function(d) {
-                // Print out every line in csv to console
-                // console.log(d);
-
                 //Store the data
                 d.name = d.DISPLAY_FIRST_LAST;
                 d.pos = d.POSITION;
@@ -100,9 +110,7 @@
                 d.country = d.COUNTRY;
             });
             bioSVG.append("g").attr("id", "playerbio");
-
-            var player = data[0];
-            makeBio(bioSVG, player);
+            makeBio(bioSVG, data[0]);
         });
     </script>
 </body>

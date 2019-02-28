@@ -21,8 +21,9 @@ def getShotCharts(fname):
                ("202681","Kyrie_Irving"), ("201566", "Russell_Westbrook"), ("2225","Tony_Parker"), ("2594","Kyle_Korver"), ("1713","Vince_Carter"), ("203954","Joel_Embiid")]
     for player in players:
         headers1 = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:53.0) Gecko/20100101 Firefox/53.0'}
+        player = ["1713", "Vince_Carter"]
         params = {
-            'PlayerID': player[0],
+            'PlayerID': "2544",
             'SeasonType': 'Regular Season',
             'Outcome' : '',
             'TeamID' : 0,
@@ -43,8 +44,9 @@ def getShotCharts(fname):
             'ContextMeasure':'FGA'
         }
         params2 = {
-            'PlayerID': player[0]
+            'PlayerID': 2544
         }
+
         #response = requests.request("GET", shot_url, headers=headers, timeout=10)
         shot_response = requests.get("https://stats.nba.com/stats/shotchartdetail", params=params, headers=headers1, timeout=10)
         shot_headers = shot_response.json()['resultSets'][0]['headers']
@@ -63,7 +65,7 @@ def getShotCharts(fname):
         # from IPython.display import display
         # with pd.option_context('display.max_columns', None):
         #     print(shot_df["GAME_DATE"])
-    exit(1)
+        exit(1)
 
 # getPIDS("playerIDS.txt")
 getShotCharts("playerIDS.txt")
