@@ -1,4 +1,6 @@
 function makeCurveChart(svg, data, width, height) {
+
+    svg.selectAll("*").remove();
     var xScale = d3.scaleLinear()
         .domain([-5, 25])
         .range([0, width - margin.right - margin.left]);
@@ -76,7 +78,6 @@ function makeCurveChart(svg, data, width, height) {
         .ticks(30, "f")
         .tickSize(0)
         .tickFormat(function (d) {
-            console.log(d)
             d = -d + 23
             var mapper = {
                 23: "~23 ft.",

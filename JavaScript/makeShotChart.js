@@ -22,7 +22,10 @@ function makeShotChart(svg, data, n, WIDTH, HEIGHT) {
     var nestedShotPos = getCombinedPos(data, n);
 
     // Draw the court
+    svg.selectAll("*").remove();
+    svg.append("g").attr('class', 'shot-chart-court')
     drawCourt(svg.select("g"));
+    console.log(svg)
 
     // Add the shots to the SVG
     svg.select(".shot-chart-court")
