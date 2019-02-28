@@ -1,0 +1,23 @@
+#page {
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
+
+#hoop {
+    height: 350px;
+    margin-left: -45px;
+}
+
+#hoop img {
+    height: 330px;
+    margin-bottom: 20px;
+}
+
+.axes text {
+    color: red
+}

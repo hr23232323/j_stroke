@@ -21,6 +21,9 @@ function makeShotChart(svg, data, n, WIDTH, HEIGHT) {
     // Aggregate the data, aggregate data is how many x, y points to cluster together
     var nestedShotPos = getCombinedPos(data, n);
 
+    // Draw the court
+    drawCourt(svg.select("g"));
+
     // Add the shots to the SVG
     svg.select(".shot-chart-court")
         .selectAll("shots")
@@ -35,14 +38,17 @@ function makeShotChart(svg, data, n, WIDTH, HEIGHT) {
         })
         .attr("r", .5)
         .style("fill", function (d) {
-            //console.log(d.value.shootingPercentage);
-            //console.log(fgScale(d.value.shootingPercentage));
             return fgScale(d.value.shootingPercentage);
         })
         .style("opacity", .25)
         .on("mouseover", function (d) {
-            console.log(d.value.shootingPercentage)
+            circle = d3.select(this)
+            circle.attr("r", 1)
+            hoverChanges(data, d.value.distance, "on")
+        })
+        .on("mouseout", function (d) {
+            circle = d3.select(this)
+            circle.attr("r", .5)
+            hoverChanges(data, d.value.distance, "off")
         });
-    // Draw the court
-    drawCourt(svg.select("g"));
 }
