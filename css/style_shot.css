@@ -40,6 +40,17 @@
     font-size: 4%
 }
 
-#courtSVG {
+.shot-chart-court {
     background-color: burlywood;
+}
+
+.shot-chart-court .arc-temp {
+    fill: hsl(207, 58%, 39%);
+    opacity: 0.5;
+}
+
+
+.overlay {
+    fill: none;
+    pointer-events: all;
 }

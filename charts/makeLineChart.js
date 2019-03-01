@@ -1,23 +1,35 @@
-function drawVertLine(svg, distance, width, height) {
+function drawVertLine(svg, distance, width, height, color, opa) {
     svg.append("line")
-        .attr("stroke", "#333333")
+        .attr("stroke", color)
         .attr("stroke-width", 2)
         .attr("x1", d3.scaleLinear().domain([0, 60]).range([50, width + 50])(distance))
         .attr("y1", 10)
         .attr("x2", d3.scaleLinear().domain([0, 60]).range([50, width + 50])(distance))
         .attr("y2", height - 50)
-        .style("opacity", .5)
+        .style("opacity", opa)
         .style("stroke-dasharray", [5, 5])
         .attr("id", "d-" + distance)
+        .attr("class", "temp")
 }
 
 function makeLineChart(svg, data, WIDTH, HEIGHT) {
     svg.selectAll("*").remove();
-    var chartHeight = HEIGHT - 50
+    var chartHeight = HEIGHT - 100
     var nestedDist = getCombinedDist(data);
+    margin = {
+        left: 20,
+        right: 100,
+        top: 60,
+        bottom: 20
+
+    }
 
     // Add the g
-    svg.append("g").attr("id", "lineDots");
+    svg.attr("height", HEIGHT - margin.top - margin.bottom)
+        .attr("width", WIDTH - margin.left - margin.right)
+        .attr('transform', 'translate(' + margin.left + ', ' +
+            margin.top + ')')
+        .append("g").attr("id", "lineDots");
 
     // Since we need to iterate over the attempts and distances to get the d[i-1] element we can use .data(data)
     // The below creates an array of [attempts, distance] that we then iterate through and draw a line
@@ -58,29 +70,9 @@ function makeLineChart(svg, data, WIDTH, HEIGHT) {
             .attr("y2", function () {
                 return d3.scaleLinear().domain([0, .25]).range([chartHeight, 10])((lineData[index][0] / totalShots));
             })
-            .attr("stroke", "red")
+            .attr("stroke", "steelBlue")
             .attr("stroke-width", 2);
     }
-    /*
-    // draw the circle data points
-    svg.select("#lineDots")
-        .selectAll("shots")
-        .data(nestedDist)
-        .enter()
-        .append("circle")
-        .attr("cx", function (d) {
-            return d3.scaleLinear().domain([0, 60]).range([50, WIDTH + 50])(d.key[0]);
-        })
-        .attr("cy", function (d) {
-            console.log((d.value.attempts / totalShots));
-            return d3.scaleLinear().domain([0, .25]).range([chartHeight, 10])(d.value.attempts / totalShots);
-        })
-        .attr("r", 4)
-        .attr("fill", "black")
-        .on("mouseover", function (d) {
-            console.log(d.key[0] + " " + d.value.attempts);
-        });
-        */
 
     // draw the axes
 
@@ -149,17 +141,14 @@ function makeLineChart(svg, data, WIDTH, HEIGHT) {
             .attr("opacity", .5);
 
         svg.append("text")
-            .text(i.toString())
+            .text(function (d) {
+                return i + " ft."
+            })
             .attr("x", scale2(i))
-            .attr("y", HEIGHT - 25)
+            .attr("y", chartHeight + 20)
             .attr("font-size", "14px");
 
     }
-    svg.append("text")
-        .text("Distance from Hoop(ft)")
-        .attr("x", scale2(15))
-        .attr("y", HEIGHT - 10)
-        .attr("font-size", "18px");
     var lh = HEIGHT / 2;
     var lw = 15
     svg.append("text")
@@ -167,7 +156,7 @@ function makeLineChart(svg, data, WIDTH, HEIGHT) {
         .attr("transform", "rotate(270 " + lw + " " + lh + ")")
         .attr("x", lw)
         .attr("y", lh)
-        .attr("font-size", "18px");
+        .attr("font-size", "12px");
 
     // 3PT Line
     svg.append("line")
@@ -177,15 +166,50 @@ function makeLineChart(svg, data, WIDTH, HEIGHT) {
         .attr("y1", 10)
         .attr("x2", d3.scaleLinear().domain([0, 60]).range([50, WIDTH + 50])(23))
         .attr("y2", chartHeight)
-        .style("opacity", .5)
+        .style("opacity", .1)
         .style("stroke-dasharray", [5, 5])
 
-    drawVertLine(svg, 23, WIDTH, chartHeight);
     svg.append("text")
         .text("(3pt Line)")
         .attr("x", d3.scaleLinear().domain([0, 60]).range([50, WIDTH + 50])(23) + 5)
         .attr("y", 120)
         .attr("font-size", "12px")
         .style("font-color", "#333333")
-        .style("opacity", .5)
+        .style("opacity", .3)
+
+    svg.append("rect")
+        .attr("transform", "translate(" + margin.left + "," + 0 + ")")
+        .attr("class", "overlay")
+        .attr("height", HEIGHT - margin.top - margin.bottom)
+        .attr("width", WIDTH - margin.left - margin.right)
+        .on("mouseover", function (e) {})
+        .on("mouseout", function (e) {
+            d3.select("#temp").remove();
+
+            d3.selectAll(".temp").remove();
+            d3.selectAll(".curve-path").attrs({
+                stroke: 'steelBlue',
+                'stroke-width': 0.5,
+                fill: 'none',
+                opacity: 0.2
+            })
+        })
+        .on("mousemove", mousemove);
+
+    function mousemove() {
+        d3.select("#temp").remove();
+        d3.selectAll(".temp").remove();
+        d3.selectAll(".curve-path").attrs({
+            stroke: 'steelBlue',
+            'stroke-width': 0.5,
+            fill: 'none',
+            opacity: 0.2
+        })
+        var scale2 = d3.scaleLinear().domain([50, WIDTH + 50]).range([0, 60]);
+        var x = d3.event.pageX - document.getElementById("lineSVG").getBoundingClientRect().x
+
+        var dist = Math.ceil(scale2(x))
+        hoverChanges_line(dist, "on")
+
+    }
 }

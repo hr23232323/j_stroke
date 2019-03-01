@@ -4,9 +4,9 @@
     <title>
         J Stroke- A new way to look at Basketball
     </title>
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <link rel="stylesheet" href="/JavaScript/styles.css" type="text/css">
-    <link rel="stylesheet" href="/shot-curve/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/style_curve.css" type="text/css">
+    <link rel="stylesheet" href="/css/style_shot.css" type="text/css">
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
@@ -16,6 +16,15 @@
     <div id="page">
         <div id="sidebar">
             <div id="left-container">
+                <div id="bio">
+                    <h1 id="p-name">-</h1>
+                    <p id="p-pos">-</p>
+                    <p id="p-num">-</p>
+                    <p id="p-city">-</p>
+                    <p id="p-team">-</p>
+                </div>
+
+
                 <select id="playerSelect">
                     <option value="Anthony_Davis">Anthony Davis</option>
                     <option value="Kevin_Durant">Kevin Durant</option>
@@ -27,7 +36,8 @@
                     <option value="Russell_Westbrook">Russell Westbrook</option>
                     <option value="Vince_Carter">Vince Carter</option>
                 </select>
-                <div id="bio"></div>
+
+
             </div>
         </div>
         <div id="viz">
@@ -37,17 +47,16 @@
             </div>
             <div id="viz-bottom">
                 <div id="viz-3" class="viz-div"></div>
-                <div id="hoop"><img src="/shot-curve/hoop.png"></div>
+                <div id="hoop"><img src="/Resources/hoop.png"></div>
             </div>
         </div>
 
     </div>
-    <script src="/JavaScript/Court.js"></script>
-    <script src="/JavaScript/helper.js"></script>
-    <script src="/JavaScript/makeShotChart.js"></script>
-    <script src="/JavaScript/makeLineChart.js"></script>
-    <script src="/JavaScript/makeBio.js"></script>
-    <script src="shot-curve/script.js"></script>
+    <script src="/charts/Court.js"></script>
+    <script src="/charts/helper.js"></script>
+    <script src="/charts/makeShotChart.js"></script>
+    <script src="/charts/makeLineChart.js"></script>
+    <script src="/charts/makeCurveChart.js"></script>
     <script src="script.js"></script>
 </body>
 

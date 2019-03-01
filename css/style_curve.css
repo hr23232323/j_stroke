@@ -10,12 +10,12 @@
 
 #hoop {
     height: 350px;
-    margin-left: -45px;
+    margin-left: -150px;
 }
 
 #hoop img {
-    height: 330px;
-    margin-bottom: 20px;
+    height: 300px;
+    margin-top: 40px;
 }
 
 .axes text {

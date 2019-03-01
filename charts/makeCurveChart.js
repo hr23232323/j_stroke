@@ -122,6 +122,44 @@ function redraw(svg, curve, width, height, margin, made, xScale, yScale) {
             'stroke-width': 0.5,
             fill: 'none',
             opacity: 0.2
+        }).on("mouseover", function (d) {
+            path = d3.select(this)
+            path.attrs({
+                stroke: 'red',
+                'stroke-width': 1,
+                opacity: 1
+            })
+            dist = Math.floor(d[0].x)
+            var x1;
+            if (dist > 23) {
+                // 3 point
+                x1 = 0 - (dist - 23)
+
+            } else {
+                //2 point
+                x1 = 0 + (23 - dist)
+            }
+            hoverChanges_curve(x1, "on")
+        })
+        .on("mouseout", function (d) {
+            path = d3.select(this)
+            path.attrs({
+                stroke: 'steelBlue',
+                'stroke-width': 0.5,
+                opacity: 0.2
+            })
+
+            dist = Math.floor(d[0].x)
+            var x1;
+            if (dist > 23) {
+                // 3 point
+                x1 = 0 - (dist - 23)
+
+            } else {
+                //2 point
+                x1 = 0 + (23 - dist)
+            }
+            hoverChanges_curve(x1, "off")
         });
 }
 

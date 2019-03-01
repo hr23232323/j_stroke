@@ -156,7 +156,4 @@ var drawCourt = function (svg) {
         .attr("cx", o.courtWidth / 2)
         .attr("cy", o.visibleCourtLength - o.basketProtrusionLength - o.basketDiameter / 2)
         .attr("r", o.basketDiameter / 2)
-    //    base.selectAll("rect").attr("fill", "none").attr("stroke", "black").attr("stroke-width", .5)
-    //    base.selectAll("path").attr("fill", "none").attr("stroke", "black").attr("stroke-width", .5)
-    //    base.selectAll("line").attr("stroke", "black").attr("stroke-width", .5)
 }

@@ -48,6 +48,7 @@ function getCombinedPos(data, n) {
             return [x, y];
         })
         .rollup(function (v) {
+            //console.log(data)
             return {
                 "made": d3.sum(v, function (d) {
                     return d.SHOT_MADE_FLAG;

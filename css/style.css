@@ -13,9 +13,21 @@ body {
 
 #sidebar {
     height: 100%;
-    flex-basis: 0;
-    flex-grow: 2;
+    flex: 0 0 250px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
 
+#left-container {
+    width: 100%;
+    padding: 10px;
+}
+
+#playerSelect {
+    position: absolute;
+    bottom: 200px;
 }
 
 
@@ -62,4 +74,9 @@ body {
     margin: 5px;
 }
 
-/*  CHARTS  */
+
+/*  STYLES  */
+#sidebar {
+    background: hsl(207, 58%, 39%);
+    color: white;
+}
