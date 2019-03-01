@@ -5,3 +5,35 @@ _J-stroke is a project undertaken to examine the current methods of basketball p
 [Link to project](https://hr23232323.github.io/final/)
 
 ---
+
+# The Design
+We started out by creating a single view dashboard containing the shot chart for a specific player. We utilized a single visual encoding channel, color, to showcase the field goal percent and used aggregation to combine similar shots together. Our shot chart can be see below-
+
+IMG 1
+
+Next, we built the frequncy chart of field goal percentage and distance. This chart can be seen below-
+
+IMG 2
+
+Finally, after exploring D3 techniques like line interpolations, seeded randomness, and arcs, we built the shot path/curve chart which can be seen below-
+
+IMG 3
+
+All these charts worked really well together with the shot chart being highly visual, the frequency chart being highly quantitative and the shit curve chart combining the two concepts. Our final dashboard can be seen below-
+
+IMG 4
+
+
+## Achievements
+W went above and beyond in this project, both from technical and design standpoints as shown below-
+
+### Technical
+Here's a description of our Technical Achievements for this project.
+- ****: 
+
+
+<br>
+
+### Design
+Here's a description of our Design Achievements for this project.
+- ****:
