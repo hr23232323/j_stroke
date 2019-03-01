@@ -37,11 +37,16 @@ W went above and beyond in this project, both from technical and design standpoi
 
 ### Technical
 Here's a description of our Technical Achievements for this project.
-- ****: 
+- **Aggregation**: We used aggregation of similar data points to make our graphs faster to load. At any given point of time, we're visualizing between 1500 and 5000 data points aggregated into 10-50 points. We edited an aggregation algorithm we found to fit our needs and achieve the desired results.
+- **Multi-View binding**: We created a three-way binding between the graphs to give the user a much better experience. Instead of treating one graph as the master and updating the other two based on the primary one, we bound listeners and updates to all three charts. 
+- **D3 Interpolation**: We utilized the D3 interpolation technique to create the graph of the shot curve. This was a highly complex graph, which involved creating the path data randomly based on certain parameters, the interpolating and visualizing the lines. 
 
 
 <br>
 
 ### Design
 Here's a description of our Design Achievements for this project.
-- ****:
+- **Visual Feedback**: We incorporated subtle visual feedback queues to make the user experience as pleasant as possible. In the shot chart, we create an arc to showcase the distance of focus, the in the frequency graph we create a vertical line wherever the user hovers and finally on the shot curve chart we change colors of all points which originate from the same distance. 
+- **Dashboard**: We created a complete dashboard look and feel with our visualizations being laid out using good CSS practices, a sidebar with player info a dropdown to change between players, in which case the data get recreated. 
+- **Custom Court**: We used D3's built in arcs and paths to create the basketball court for the first graph from scratch. 
+- **Custom path chart**: We used D3's seeded randomness techniques to induce minimal randomness to the path created by the ball in the shot chart graph to mimic real life and appear more realistic.
