@@ -56,7 +56,7 @@ function makeCharts(player_name) {
     //Make the Court SVG
 
     // Load the CSV
-    d3.csv("/Resources/" + player_name + "_shots.csv").then(function (data, error) {
+    d3.csv("./rec/" + player_name + "_shots.csv").then(function (data, error) {
         if (error) {
             throw error;
         }
@@ -82,7 +82,7 @@ function makeCharts(player_name) {
 
     });
 
-    d3.csv("/Resources/" + player_name + "info.csv").then(function (data, error) {
+    d3.csv("./rec/" + player_name + "info.csv").then(function (data, error) {
         if (error) {
             throw error;
         }
